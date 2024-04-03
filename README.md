@@ -13,7 +13,7 @@ This project is a machine learning model for face and non-face recognition. It u
 ## PCA
 Principal Component Analysis (PCA) is a dimensionality reduction technique that is used to extract important features from high-dimensional datasets. PCA works by identifying the principal components of the data, which are linear combinations of the original features that capture the most variation in the data
 
-LDA
+## LDA
 Linear Discriminant Analysis (LDA) is a dimensionality reduction technique that is used to reduce the number of features in a dataset while maintaining the class separability. LDA is a supervised technique, meaning that it uses the class labels to perform the dimensionality reduction. LDA is a popular technique for dimensionality reduction in the field of pattern recognition and machine learning
 
 ## Dataset
@@ -69,7 +69,8 @@ non_faces, non_labels = load_images('/content/drive/MyDrive/ColabNotebooks/ML_pr
 #### Labels
 1. Created binary labels (1 for faces, 0 for non-faces).
   ~~~ python
-      print(faces_labels[99])
+      faces_labels = np.ones((len(faces),1))
+      non_faces_labels = np.zeros((len(non_faces),1))
   ~~~
 
 #### Shuffle images within each class
@@ -99,14 +100,74 @@ def train_test_split(X, y, test_size=0.3, random_state = 42):
     X_train, X_test, y_train, y_test = np.array(X_train), np.array(X_test), np.array(y_train), np.array(y_test)
     return X_train, X_test, y_train, y_test
 ~~~
+### Dimensionality Reduction: PCA
+Applied PCA for dimensionality reduction.
 
-   
+Explored the variance explained by different components.
+
+Transformed both training and testing data using the selected number of components.
+
+Use the most efficient alpha value from the first part 0.85.
+
+~~~ Python
+def PCA(train_data,alpha=0.85):
+    mean = np.mean(train_data, axis=0)
+    centered_data = train_data - mean
+    cov_matrix = np.dot(centered_data,centered_data.T)
+    eig_values, eig_vectors = np.linalg.eigh(cov_matrix)
+    idx = np.argsort(eig_values)[::-1]
+    eig_values = eig_values[idx]
+    eig_vectors = eig_vectors[:,idx]
+    eig_vectors = np.dot(centered_data.T,eig_vectors)
+    for i in range(eig_vectors.shape[1]):
+        eig_vectors[:,i] = eig_vectors[:,i]/np.linalg.norm(eig_vectors[:,i])
+    total = np.sum(eig_values)
+    k = 0
+    var = 0
+    while var/total < alpha:
+        var += eig_values[k]
+        k += 1
+    return eig_vectors[:,:k], mean
+
+def project_data(data, eigenvectors, mean,):
+    return np.dot(data - mean, eigenvectors)
+~~~
+### Dimensionality Reduction: LDA
+Applied LDA for dimensionality reduction.
+
+Use only one dominant eigenvector as we have only two classes.
+
+Transformed both training and testing data using the selected number of components.
+~~~ python
+def LDA (train_data, train_labels, k=1):]
+    mean1 = np.mean(train_data[train_labels.ravel() == 1], axis=0)
+    mean0 = np.mean(train_data[train_labels.ravel() == 0], axis=0)
+
+    Sw = np.dot((train_data[train_labels.ravel() == 1] - mean1).T, 
+                (train_data[train_labels.ravel() == 1] - mean1)) 
+            + np.dot((train_data[train_labels.ravel() == 0] - mean0).T, 
+                        (train_data[train_labels.ravel() == 0] - mean0))
+    Sb = np.dot((mean1 - mean0).reshape(-1,1), (mean1 - mean0).reshape(-1,1).T)
+
+    eig_values, eig_vectors = np.linalg.eigh(np.dot(np.linalg.inv(Sw), Sb))
+    eig_values = np.real( eig_values)
+    eig_vectors = np.real( eig_vectors)
+    idx = np.argsort(eig_values)[::-1]
+    eig_values = eig_values[idx]
+    eig_vectors = eig_vectors[:,idx]
+    return eig_vectors[:,:k]
+~~~
+### Model Training and Evaluation
+1) Use different models(Logistic regression, KNN and SVM) for training and evaluation
+
+2) Trained the model using the transformed data.
+
+3) Evaluated the model using accuracy.
 ## Usage
 This project can be used to recognize faces and non-faces in images. The model is trained on a dataset of face and non-face images, and it can predict whether a new image is a face or not.
 
 The code includes functions for loading and preprocessing the images, splitting the data into training and testing sets, applying PCA and LDA, and training and evaluating different classifiers.
 
 ## Contributing
-If you want to contribute to this project, please fork the repository and make a pull request. We're always looking for new contributors!
-
-## License
+1)Abel Abebe Bzuayene
+2)kidus Bellete
