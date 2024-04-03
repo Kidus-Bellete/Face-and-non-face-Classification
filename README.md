@@ -74,9 +74,9 @@ non_faces, non_labels = load_images('/content/drive/MyDrive/ColabNotebooks/ML_pr
   ~~~
 
 #### Shuffle images within each class
-why shuffling is basically use to be sure that you don't have bias when you spliting data into training and testing 
-1. shuffle face images and thier labels
-2. shuffle non_faces images and thier labels
+why shuffling is basically used to be sure that you don't have bias when you splitting data into training and testing 
+1. shuffle face images and their labels
+2. shuffle non_faces images and their labels
 ~~~ python
 def shuffle_data(data, labels):
     idx = np.arange(data.shape[0])
@@ -100,6 +100,17 @@ def train_test_split(X, y, test_size=0.3, random_state = 42):
     X_train, X_test, y_train, y_test = np.array(X_train), np.array(X_test), np.array(y_train), np.array(y_test)
     return X_train, X_test, y_train, y_test
 ~~~
+### Display samples of training data and test data
+~~~ Python
+X_train, y_train=shuffle_data(X_train, y_train)
+X_test, y_test = shuffle_data(X_test, y_test)
+
+plot_data(X_train, y_train,10)
+plot_data(X_test, y_test,10)
+print(X_train.shape)
+~~~
+![alt text](image/image2.jpg)
+
 ### Dimensionality Reduction: PCA
 Applied PCA for dimensionality reduction.
 
@@ -132,6 +143,8 @@ def PCA(train_data,alpha=0.85):
 def project_data(data, eigenvectors, mean,):
     return np.dot(data - mean, eigenvectors)
 ~~~
+#### Sample eigenfaces
+![alt text](image/image4.jpg)
 ### Dimensionality Reduction: LDA
 Applied LDA for dimensionality reduction.
 
@@ -158,24 +171,21 @@ def LDA (train_data, train_labels, k=1):]
     return eig_vectors[:,:k]
 ~~~
 
-![alt text](image/image4.jpg)
-![alt text](image/image2.jpg)
-![alt text](image/image3.jpg)
-![alt text](image/image5.jpg)
-![alt text](image/image6.jpg)
-![alt text](image/imag7.jpg)
-
 ### Model Training and Evaluation
 1) Use different models(Logistic regression, KNN and SVM) for training and evaluation
 
 2) Trained the model using the transformed data.
 
 3) Evaluated the model using accuracy.
+
+sample confusion matrix and confusion report
+![alt text](image/image7.jpg)
+![alt text](image/image6.jpg)
 ## Usage
 This project can be used to recognize faces and non-faces in images. The model is trained on a dataset of face and non-face images, and it can predict whether a new image is a face or not.
 
 The code includes functions for loading and preprocessing the images, splitting the data into training and testing sets, applying PCA and LDA, and training and evaluating different classifiers.
 
-## Contributing
-1)Abel Abebe Bzuayene
-2)kidus Bellete
+## Contributors
+- Abel Abebe Bzuayene
+- kidus Bellete
