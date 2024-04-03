@@ -188,4 +188,4 @@ The code includes functions for loading and preprocessing the images, splitting 
 
 ## Contributors
 - Abel Abebe Bzuayene
-- kidus Bellete
+- kidus Dagnaw Bellete
