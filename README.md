@@ -158,12 +158,12 @@ def LDA (train_data, train_labels, k=1):]
     return eig_vectors[:,:k]
 ~~~
 
-![alt text](images/image4.jpg)
-![alt text](images/image2.jpg)
-![alt text](images/image3.jpg)
-![alt text](images/image5.jpg)
-![alt text](images/image6.jpg)
-![alt text](images/imag7.jpg)
+![alt text](image/image4.jpg)
+![alt text](image/image2.jpg)
+![alt text](image/image3.jpg)
+![alt text](image/image5.jpg)
+![alt text](image/image6.jpg)
+![alt text](image/imag7.jpg)
 
 ### Model Training and Evaluation
 1) Use different models(Logistic regression, KNN and SVM) for training and evaluation
