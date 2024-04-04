@@ -1,4 +1,4 @@
-# Face and Non-Face Recognition
+# Face and Non-Face Classification
 
 ## Table of Contents
 1. Introduction
@@ -8,7 +8,7 @@
 5. License
 
 ## Introduction
-This project is a machine learning model for face and non-face recognition. It uses various techniques such as Principal Component Analysis (PCA), Linear Discriminant Analysis (LDA), and different classifiers to distinguish between images of faces and non-faces.
+This project is a machine learning model for face and non-face classification. It uses various techniques such as Principal Component Analysis (PCA), Linear Discriminant Analysis (LDA), and different classifiers to distinguish between images of faces and non-faces.
 
 ## PCA
 Principal Component Analysis (PCA) is a dimensionality reduction technique that is used to extract important features from high-dimensional datasets. PCA works by identifying the principal components of the data, which are linear combinations of the original features that capture the most variation in the data
